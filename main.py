@@ -25,17 +25,14 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-spreadsheet_url = ""
+spreadsheet_url = "1AV1ZAzqHroreRq99h3Whs97gxDulaIORsCHxtpCBavk"
 doc = gc.open_by_key(spreadsheet_url) #스프레드시트 문서 가져오기
 
-worksheet = doc.worksheet('시트1')
+worksheet = doc.worksheet('시트2')
 
-statuses = api.home_timeline(since_id="1481514533747257345", count=200)
+statuses = api.home_timeline(since_id="1481532352761593856", count=200)
 
 
-tmline = list(status.text for status in statuses)
-for text in tmline:
-    print(tmline)
+tmline = list([status.user.name, str(status.created_at), status.text] for status in statuses)
 
-#for text in statuses:
-  #  worksheet.update('B1', statuses[200].text).
+worksheet.update('B2:D300', tmline)
